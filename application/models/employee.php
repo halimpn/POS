@@ -258,10 +258,9 @@ class Employee extends Person
 	*/
 	function login($username, $password)
 	{
-		$query = $this->db->get_where('employees', array('username' => $username,'password'=>md5($password)), 1);
-		if ($query->num_rows() ==1)
+		$row = $this->db->get_where('employees', array('username' => $username), 1)->row();
+		if (isset($row->password) && password_verify($password, $row->password))
 		{
-			$row=$query->row();
 			$this->session->set_userdata('person_id', $row->person_id);
 			return true;
 		}
