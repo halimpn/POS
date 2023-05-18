@@ -69,7 +69,7 @@ class Employees extends Person_controller
 		{
 			$employee_data=array(
 			'username'=>$this->input->post('username'),
-			'password'=>md5($this->input->post('password'))
+			'password'=>password_hash($this->input->post('password'), PASSWORD_BCRYPT, ['cost' => 12])
 			);
 		}
 		else //Password not changed
